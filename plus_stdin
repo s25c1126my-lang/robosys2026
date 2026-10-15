@@ -1,0 +1,6 @@
+#!/usr/bin/python3
+import sys
+
+# コマンドライン引数を数値に変換して合計
+args = [float(arg) for arg in sys.argv[1:]]
+print(sum(args))
