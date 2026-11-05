@@ -1,24 +1,27 @@
-#!/usr/bin/python3
-import sys
-
-x = 0                     #もともと0.0だったのを0に変更
-for line in sys.stdin:
-    try:
-        x += int(line)    #intは文字列を整数に（失敗すると例外発生）
-    except ValueError:    #第3回で見たエラーの名前
-        x += float(line)
-print(x)
-x += tonum(line.rstrip())   #line.rstrip()で末尾の改行を除去
-#!/usr/bin/python3
-# SPDX-FileCopyrightText: 2026 Taro Suzuki
-# SPDX-License-Identifier: BSD-3-Clause
+#!/usr/bin/env python3
 import sys
 
 x = 0
-for line in sys.stdin:
-    try:
-        x += int(line)
-    except ValueError:
-        x += float(line)
+has_input = False
 
-print(x)
+try:
+    for line in sys.stdin:
+        has_input = True
+        # 入力を数値に変換しようとする（int -> floatの順で試行）
+        line_str = line.rstrip()
+        try:
+            x += int(line_str)
+        except ValueError:
+            x += float(line_str)
+
+    # 入力が空（何も入力されなかった）場合は異常終了
+    if not has_input:
+        sys.exit(1)
+
+    # 正常に計算できた場合のみ結果を出力して終了ステータス 0
+    print(x)
+    sys.exit(0)
+
+except ValueError:
+    # 数値に変換できない値（「あ」など）が含まれていた場合は標準出力に何も出さず異常終了
+    sys.exit(1)
