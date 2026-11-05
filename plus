@@ -9,3 +9,16 @@ for line in sys.stdin:
         x += float(line)
 print(x)
 x += tonum(line.rstrip())   #line.rstrip()で末尾の改行を除去
+#!/usr/bin/python3
+# SPDX-FileCopyrightText: 2026 Taro Suzuki
+# SPDX-License-Identifier: BSD-3-Clause
+import sys
+
+x = 0
+for line in sys.stdin:
+    try:
+        x += int(line)
+    except ValueError:
+        x += float(line)
+
+print(x)
